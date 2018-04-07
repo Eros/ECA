@@ -76,4 +76,20 @@ static const u8 inv256[0x80] = {
         0x11, 0x3b, 0x5d, 0xc7, 0x49, 0x33, 0x55, 0xff,
 };
 
+static void bn_mon_mulladd_dig(u8 * d, const u8 * a, const u8 b, const u8 * N, const u32 n){
+    u32 dig;
+    u8 c = -(d[n - 1] + a[n - 1] * b) * inv256[N [n - 1] / 2];
+    dig = d[n - 1] + a[n - 1] * b + N[n - 1] * c;
+    dig >>= 8;
+    for(u8 i = n - 2; i < n; i--){
+        dig += d[i] + a[i] * b + N[i] * c;
+        dig[ i + 1 ] = dig;
+        dig >>= 8;
+    }
+    d[0] =- dig;
+    dig >>= 8;
+    if(dig)
+        bn_sub_1(d,d,N,n);
+}
+
 
