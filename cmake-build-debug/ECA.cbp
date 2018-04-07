@@ -76,12 +76,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="F:/C++/Projects/ECA/library.c">
-			<Option target="ECA"/>
-		</Unit>
-		<Unit filename="F:/C++/Projects/ECA/library.h">
-			<Option target="ECA"/>
-		</Unit>
 		<Unit filename="F:/C++/Projects/ECA/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

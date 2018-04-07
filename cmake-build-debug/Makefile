@@ -122,33 +122,6 @@ ECA/fast:
 	$(MAKE) -f CMakeFiles\ECA.dir\build.make CMakeFiles/ECA.dir/build
 .PHONY : ECA/fast
 
-library.obj: library.c.obj
-
-.PHONY : library.obj
-
-# target to build an object file
-library.c.obj:
-	$(MAKE) -f CMakeFiles\ECA.dir\build.make CMakeFiles/ECA.dir/library.c.obj
-.PHONY : library.c.obj
-
-library.i: library.c.i
-
-.PHONY : library.i
-
-# target to preprocess a source file
-library.c.i:
-	$(MAKE) -f CMakeFiles\ECA.dir\build.make CMakeFiles/ECA.dir/library.c.i
-.PHONY : library.c.i
-
-library.s: library.c.s
-
-.PHONY : library.s
-
-# target to generate assembly for a file
-library.c.s:
-	$(MAKE) -f CMakeFiles\ECA.dir\build.make CMakeFiles/ECA.dir/library.c.s
-.PHONY : library.c.s
-
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -158,9 +131,6 @@ help:
 	@echo ... edit_cache
 	@echo ... ECA
 	@echo ... rebuild_cache
-	@echo ... library.obj
-	@echo ... library.i
-	@echo ... library.s
 .PHONY : help
 
 

@@ -3,4 +3,4 @@ project(ECA C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_library(ECA library.c library.h)
+add_library(ECA library.c library.h ECA.c)
