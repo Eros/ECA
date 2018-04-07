@@ -121,3 +121,23 @@ void point_add(struct point * r, const struct point * q){
     }
 }
 
+void point_mul(struct point * d, const u8 * a, const struct point * b){
+    u8 mask;
+    bn_zero((u8 *) d, 40);
+
+    for(u8 i = 0; i < 21; i++){
+        for(mask = 0x80; mask != 0; mask >>= 1){
+            point_double(d);
+            if((a[i] & mask) != 0)
+                point_add(d, b);
+        }
+    }
+}
+
+void point_to_mon(struct point * p){
+    bn_to_mon(p -> x, EC.p, 20);
+    bn_to_mon(p -> y, EC.p, 20);
+}
+
+
+
