@@ -97,3 +97,27 @@ void point_double(struct point * r) {
     bn_sub(ry, ry, py, EC.p, 20);
 }
 
+void point_add(struct point * r, const struct point * q){
+    if(point_is_zero(r)){
+        *r = * q;
+        return;
+    }
+    if(point_is_zero(q)){
+        return;
+    }
+    struct point
+            pp = * r,
+            qq = * q;
+    u8 = s[20], t[20], u[20], *px = pp.x, *pu = pp.y, *qx = qq.x, *qy = qq.y, *rx = r -> x, *ry = r -> y;
+
+    bn_sub_1(u, qx, 20);
+    if(isEltZero(u)){
+        bn_sub_1(u, qy, py);
+        if(isEltZero(u))
+            point_double(r);
+        else
+            bn_zero((u8 *) r, 40);
+        return;
+    }
+}
+
