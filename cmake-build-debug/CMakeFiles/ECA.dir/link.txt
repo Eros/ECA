@@ -1,0 +1,2 @@
+C:\MinGW\bin\ar.exe qc libECA.a  CMakeFiles/ECA.dir/library.c.obj
+C:\MinGW\bin\ranlib.exe libECA.a
