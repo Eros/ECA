@@ -139,5 +139,60 @@ void point_to_mon(struct point * p){
     bn_to_mon(p -> y, EC.p, 20);
 }
 
+int main(int argc, char *argv[]){
+    u8 *p, *a, *b, *Gx, *Gy, *Q, *k;
+    if(argv[1]){
+        p = x_to_u8_buffer("c1c627e1638fdc8e24299bb041e4e23af4bb5427");
+        a = x_to_u8_buffer("c1c627e1638fdc8e24299bb041e4e23af4bb5424");
+        b = x_to_u8_buffer("877a6d84155a1de374b72d9f9d93b36bb563b2ab");
+        Gx = x_to_u8_buffer("010aff82b3ac72569ae645af3b527be133442131");
+        Gy = x_to_u8_buffer("46b8ec1e6d71e5ecb549614887d57a287df573cc");
+        Q = x_to_u8_buffer("41da1a8f74ff8d3f1ce20ef3e9d8865c96014fe373ca143c9badedf2d9d3c7573307115ccfe04f13");
+        k = x_to_u8_buffer("00542d46e7b3daac8aeb81e533873aabd6d74bb710");
+    } else {
+        p = x_to_u8_buffer("dfd7e09d5092e7a5d24fd2fec423f7012430ae9d");
+        a = x_to_u8_buffer("dfd7e09d5092e7a5d24fd2fec423f7012430ae9a");
+        b = x_to_u8_buffer("01914dc5f39d6da3b1fa841fdc891674fa439bd4");
+        Gx = x_to_u8_buffer("70ee7b94f7d52ed6b1a1d3201e2d85d3b82a9810");
+        Gy = x_to_u8_buffer("0b23823cd6dc3df20979373e5662f7083f6aa56f");
+        Q = x_to_u8_buffer("5432bddd1f97418147aff016eaa6100834f2caa8c498b88965689ee44df349b066cd43cbf4f2c5d0");
+        k =  x_to_u8_buffer("00542d46e7b3daac8aeb81e533873aabd6d74bb710");
+    }
+    memcpy(EC.p, p, 20);
+        free(p);
+    memcpy(EC.a, a, 20);
+        free(a);
+    memcpy(EC.b, b, 20);
+        free(b);
+    memcpy(EC.G.x, Gx, 20);
+        free(Gx);
+    memcpy(EC.G.y, Gy, 20);
+        free(Gy);
+    bn_to_mon(EC.a, EC.p, 20);
+    bn_to_mon(EC.b, EC.p, 20);
+    point_to_mon(&EC.G);
 
+    struct point ec_Q;
+    memcpy(ec_Q.x, Q, 20);
+    memcpy(ec_Q.y, Q + 20, 20);
+    point_to_mon(&ec_Q);
+
+    struct point P;
+    point_mul(&P, k, &EC.G);
+
+    bn_print("k", k, 21);
+    free(k);
+
+    point_from_mon(&P);
+
+    bn_print("P.x", (u8 *)&P.x, 20);
+    bn_print("P.y", (u8 *)&P.y, 20);
+
+    if(memcmp((u8 *)&P, Q, 40) != 0)
+        puts("FAIL!");
+    else
+        puts("OK!");
+
+    free(Q);
+}
 
